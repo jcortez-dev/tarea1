@@ -25,4 +25,9 @@ public class CarController {
     public List<Car> getCars(){
         return carService.getCars();
     }
+
+    @GetMapping("contact/{carId}")
+    public Car contactAgency(@PathVariable int carId) {
+        return carService.contactAgency(carId);
+    }
 }
