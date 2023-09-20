@@ -16,10 +16,14 @@ public class Car {
     private double price;
     private boolean turbo;
     private String type;
-    private double motor;
+    private String motor;
     private int cabin;
     private boolean sunroof;
     private int popularity;
+
+    static final String [] SEDAN_MOTOR_TYPES = {"1.4cc" , "1.6cc", "2.0cc"};
+    static final String [] SUV_MOTOR_TYPES = {"1.8cc" , "2.2cc", "2.8cc"};
+    static final String [] TRUCK_MOTOR_TYPES = {"2.4cc" , "3.0cc", "4.0cc"};
 
     public Car(){
         this.brand = generateRandomBrand();
@@ -34,17 +38,38 @@ public class Car {
         this.popularity = 0;
     }
 
-    private boolean generateRandomSunroof(String type) {
-        return false;
+    private boolean generateRandomSunroof(String carType) {
+        Random random = new Random();
+        if(carType.equalsIgnoreCase("suv")){
+            return random.nextBoolean();
+        }else{
+            return false;
+        }
     }
 
-    private int generateRandomCabins(String type) {
-        return 0;
+    private int generateRandomCabins(String carType) {
+        Random random = new Random();
+        if(carType.equalsIgnoreCase("truck")){
+            return random.nextInt(2)+1;
+        }else{
+            return 2;
+        }
     }
 
-    private double generateRandomMotorType(String carType) {
-        return 0;
+    private String generateRandomMotorType(String carType) {
+        Random random = new Random();
+        if(carType.equalsIgnoreCase("sedan")){
+            int randomIndex = random.nextInt(SEDAN_MOTOR_TYPES.length);
+            return SEDAN_MOTOR_TYPES[randomIndex];
+        }else if(carType.equalsIgnoreCase("truck")){
+            int randomIndex = random.nextInt(TRUCK_MOTOR_TYPES.length);
+            return TRUCK_MOTOR_TYPES[randomIndex];
+        }else{
+            int randomIndex = random.nextInt(SUV_MOTOR_TYPES.length);
+            return SUV_MOTOR_TYPES[randomIndex];
+        }
     }
+
 
     private String generateRandomCarType() {
         String[] carTypes = {"SUV", "Truck", "Sedan"};
