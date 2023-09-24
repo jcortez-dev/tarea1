@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequiredArgsConstructor
@@ -24,12 +25,13 @@ public class CarController {
     }
 
     @GetMapping("agent/filter")
-    public List<Car> getCarsWithFilter(@RequestParam(required = false) Integer maxPrice, @RequestParam(required = false) String type, @RequestParam(required = false) String color){
+    public List<Car> filterCarsForAgent(@RequestParam(required = false) Integer maxPrice, @RequestParam(required = false) String type, @RequestParam(required = false) String color){
+        return carService.agentFilter(maxPrice, type, color);}
+
+    @GetMapping("filter")
+    public List<Map<String, Object>> filterCars(@RequestParam(required = false) Integer maxPrice, @RequestParam(required = false) String type, @RequestParam(required = false) String color){
         return carService.filter(maxPrice, type, color);}
 
-    @GetMapping("agent/{carId}")
-    public Car contactAgent(@PathVariable int carId){
-        return carService.contactAgency(carId);}
 
     @GetMapping("contact/{carId}")
     public Car contactAgency(@PathVariable int carId) {

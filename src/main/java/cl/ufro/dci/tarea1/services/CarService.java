@@ -5,9 +5,7 @@ import cl.ufro.dci.tarea1.repositories.CarRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -109,7 +107,31 @@ public class CarService {
         return contactedCar;
     }
 
-    public List<Car> filter(Integer maxPrice, String type, String color) {
+
+
+    public List<Map<String, Object>> filter (Integer maxPrice, String type, String color){
+        List<Map<String, Object>> carsWithoutPopularity = new ArrayList<>();
+        List <Car> filteredCars = agentFilter(maxPrice, type, color);
+
+        for (Car car : filteredCars) {
+            Map<String, Object> carInfo = new HashMap<>();
+            carInfo.put("id", car.getId());
+            carInfo.put("brand", car.getBrand());
+            carInfo.put("productionYear", car.getProductionYear());
+            carInfo.put("color", car.getColor());
+            carInfo.put("price", car.getPrice());
+            carInfo.put("turbo", car.isTurbo());
+            carInfo.put("type", car.getType());
+            carInfo.put("motor", car.getMotor());
+            carInfo.put("cabin", car.getCabin());
+            carInfo.put("sunroof", car.isSunroof());
+            carsWithoutPopularity.add(carInfo);
+        }
+
+        return carsWithoutPopularity;
+    }
+
+    public List<Car> agentFilter(Integer maxPrice, String type, String color) {
 
         List<Car>cars = carRepository.findAll();
 
