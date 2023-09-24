@@ -24,7 +24,11 @@ public class CarService {
     static final int MAXIMUM_PRICE = 30000000;
     static final Random random = new Random();
 
-
+    /**
+     * Method whose function is to create N number of cars with previously defined random values
+     * @param carQuantity Number of cars to be created.
+     * @return List of cars created
+     */
     public List<Car> generateCars(int carQuantity){
         List<Car> generatedCars = new ArrayList<>();
 
@@ -46,10 +50,19 @@ public class CarService {
         return carRepository.saveAll(generatedCars);
     }
 
+    /**
+     * Method whose function is to obtain the complete list of cars.
+     * @return Complete list of cars.
+     */
     public List<Car> getCars() {
         return carRepository.findAll();
     }
 
+    /**
+     * Method that fulfills the function of determining whether or not the SUV type car has a sunroof
+     * @param carType Type of car
+     * @return A boolean value that determines whether the car has a sunroof.
+     */
     private boolean generateRandomSunroof(String carType) {
         if(carType.equalsIgnoreCase("suv")){
             return random.nextBoolean();
@@ -58,6 +71,11 @@ public class CarService {
         }
     }
 
+    /**
+     * Method that fulfills the function of determining if the TRUCK type car has 1 or 2 cabins
+     * @param carType Type of car
+     * @return The number of cabins the car will have
+     */
     private int generateRandomCabins(String carType) {
         if(carType.equalsIgnoreCase("truck")){
             return random.nextInt(2)+1;
@@ -66,6 +84,11 @@ public class CarService {
         }
     }
 
+    /**
+     *
+     * @param carType
+     * @return
+     */
     private String generateRandomMotorType(String carType) {
         int randomIndex;
         switch (carType.toLowerCase()) {
@@ -84,21 +107,40 @@ public class CarService {
         }
     }
 
-
+    /**
+     *
+     * @param specifications
+     * @return
+     */
     private String generateCarSpecification(String [] specifications) {
         int randomIndex = random.nextInt(specifications.length);
 
         return specifications[randomIndex];
     }
 
+    /**
+     *
+     * @return
+     */
     private boolean generateRandomTurbo() {
         return random.nextBoolean();
     }
 
+    /**
+     *
+     * @param minimumValue
+     * @param maximumValue
+     * @return
+     */
     public int generateNumericValue(int minimumValue, int maximumValue) {
         return random.nextInt(maximumValue - minimumValue + 1) + minimumValue;
     }
 
+    /**
+     *
+     * @param carId
+     * @return
+     */
     public Car contactAgency(Integer carId){
         Car contactedCar = carRepository.findById(carId).get();
         int carPopularity = contactedCar.getPopularity();
@@ -108,7 +150,13 @@ public class CarService {
     }
 
 
-
+    /**
+     *
+     * @param maxPrice
+     * @param type
+     * @param color
+     * @return
+     */
     public List<Map<String, Object>> filter (Integer maxPrice, String type, String color){
         List<Map<String, Object>> carsWithoutPopularity = new ArrayList<>();
         List <Car> filteredCars = agentFilter(maxPrice, type, color);
@@ -131,6 +179,13 @@ public class CarService {
         return carsWithoutPopularity;
     }
 
+    /**
+     *
+     * @param maxPrice
+     * @param type
+     * @param color
+     * @return
+     */
     public List<Car> agentFilter(Integer maxPrice, String type, String color) {
 
         List<Car>cars = carRepository.findAll();
