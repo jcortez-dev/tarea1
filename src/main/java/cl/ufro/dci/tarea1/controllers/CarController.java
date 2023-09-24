@@ -3,10 +3,7 @@ package cl.ufro.dci.tarea1.controllers;
 import cl.ufro.dci.tarea1.models.Car;
 import cl.ufro.dci.tarea1.services.CarService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -25,6 +22,10 @@ public class CarController {
     public List<Car> getCars(){
         return carService.getCars();
     }
+
+    @GetMapping("contact")
+    public List<Car> getCarsWithFilter(@RequestParam Integer maxPrice, @RequestParam String type, @RequestParam String color){
+        return carService.filter(maxPrice, type,color);}
 
     @GetMapping("contact/{carId}")
     public Car contactAgency(@PathVariable int carId) {

@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -106,5 +107,39 @@ public class CarService {
         contactedCar.setPopularity(carPopularity+1);
         carRepository.save(contactedCar);
         return contactedCar;
+    }
+
+    public List<Car> filter(Integer maxPrice, String type, String color) {
+        return getCars().stream()
+                .filter(car -> (validPrice(maxPrice) == null || car.getPrice() <= maxPrice)&&
+                        (validType(type) == null || validType(type).equalsIgnoreCase(car.getType()))&&
+                        (validColor(color) == null  || car.getColor().equals(color)))
+                .collect(Collectors.toList());
+    }
+
+    public String validType(String type){
+        for (int i = 0; i < CAR_TYPES.length; i++) {
+            if(CAR_TYPES[i].equalsIgnoreCase(type)){
+                return type;
+            }
+        }
+        return null;
+    }
+
+    public Integer validPrice(int price){
+        if(price > 0 ){
+            return price;
+        }else {
+            return null;
+        }
+    }
+
+    public String validColor(String color){
+        for (int i = 0; i < CAR_COLORS.length; i++) {
+            if(CAR_COLORS[i].equalsIgnoreCase(color)){
+                return color;
+            }
+        }
+        return null;
     }
 }
