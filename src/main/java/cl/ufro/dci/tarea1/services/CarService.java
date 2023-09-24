@@ -109,63 +109,14 @@ public class CarService {
         return contactedCar;
     }
 
-    /*
-    public List<Car> filter(Integer maxPrice, String type, String color) {
-
-        List<Car> cars = getCars();
-
-        List<Car> filteredCars = cars.stream()
-                .filter(car -> (validPrice(maxPrice) == null || car.getPrice() <= maxPrice) &&
-                        (validType(type) == null || validType(type).equalsIgnoreCase(car.getType())) &&
-                        (validColor(color) == null || car.getColor().equals(color)))
-                .collect(Collectors.toList());
-
-        filteredCars.forEach(car -> {
-            car.setPopularity(car.getPopularity() + 1);
-            carRepository.save(car);
-        });
-
-        return filteredCars;
-    }
-     */
-
     public List<Car> filter(Integer maxPrice, String type, String color) {
 
         List<Car>cars = carRepository.findAll();
 
         return cars.stream()
                 .filter(car -> (color == null || color.equalsIgnoreCase(car.getColor()))
-                        && (maxPrice == null || maxPrice.equals(car.getPrice()))
+                        && (maxPrice == null || maxPrice >= car.getPrice())
                         && (type == null || type.equalsIgnoreCase(car.getType())))
                 .collect(Collectors.toList());
     }
-
-    /*
-    public String validType(String type){
-        for (int i = 0; i < CAR_TYPES.length; i++) {
-            if(CAR_TYPES[i].equalsIgnoreCase(type)){
-                return type;
-            }
-        }
-        return null;
-    }
-
-    public Integer validPrice(int price){
-        if(price > 0 ){
-            return price;
-        }else {
-            return null;
-        }
-    }
-
-    public String validColor(String color){
-        for (int i = 0; i < CAR_COLORS.length; i++) {
-            if(CAR_COLORS[i].equalsIgnoreCase(color)){
-                return color;
-            }
-        }
-        return null;
-    }
-
-     */
 }

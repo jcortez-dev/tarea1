@@ -13,7 +13,7 @@ import java.util.List;
 public class CarController {
     private final CarService carService;
 
-    @GetMapping("create/{quantity}")
+    @GetMapping("create/{carsQuantity}")
     public List<Car> generateCars(@PathVariable int carsQuantity){
         return carService.generateCars(carsQuantity);
     }
@@ -24,8 +24,8 @@ public class CarController {
     }
 
     @GetMapping("agent/filter")
-    public List<Car> getCarsWithFilter(@RequestParam(required = false) Integer maxPrice, @RequestParam(required = false) String carType, @RequestParam(required = false) String carColor){
-        return carService.filter(maxPrice, carType, carColor);}
+    public List<Car> getCarsWithFilter(@RequestParam(required = false) Integer maxPrice, @RequestParam(required = false) String type, @RequestParam(required = false) String color){
+        return carService.filter(maxPrice, type, color);}
 
     @GetMapping("agent/{carId}")
     public Car contactAgent(@PathVariable int carId){

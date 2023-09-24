@@ -17,7 +17,7 @@ GET localhost:8080/api/car/create/{carsQuantity}
 ```
 GET localhost:8080/api/car/{carId}
 ```
-3. To filter cars, you can indicate it on the request. You can filter cars by: color, maximumprice and car type. You can use any amount of filters you want:
+3. To filter cars, you can indicate it on the request. You can filter cars by: car color, maximum price and car type. You can use any amount of filters you want:
 
 ```
 GET localhost:8080/api/car/filter?maxprice={maxPrice}&color={color}&type={type}
