@@ -110,11 +110,21 @@ public class CarService {
     }
 
     public List<Car> filter(Integer maxPrice, String type, String color) {
-        return getCars().stream()
-                .filter(car -> (validPrice(maxPrice) == null || car.getPrice() <= maxPrice)&&
-                        (validType(type) == null || validType(type).equalsIgnoreCase(car.getType()))&&
-                        (validColor(color) == null  || car.getColor().equals(color)))
+
+        List<Car> cars = getCars();
+
+        List<Car> filteredCars = cars.stream()
+                .filter(car -> (validPrice(maxPrice) == null || car.getPrice() <= maxPrice) &&
+                        (validType(type) == null || validType(type).equalsIgnoreCase(car.getType())) &&
+                        (validColor(color) == null || car.getColor().equals(color)))
                 .collect(Collectors.toList());
+
+        filteredCars.forEach(car -> {
+            car.setPopularity(car.getPopularity() + 1);
+            carRepository.save(car);
+        });
+
+        return filteredCars;
     }
 
     public String validType(String type){
