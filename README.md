@@ -15,7 +15,7 @@ GET localhost:8080/api/car/create/{carsQuantity}
 ```
 2. To consult a car, you need to indicate the car id on the request. By doing this, the car popularity will increase by +1:
 ```
-GET localhost:8080/api/car/{carId}
+GET localhost:8080/api/car/contact/{carId}
 ```
 3. To filter cars, you can indicate it on the request. You can filter cars by: car color, maximum price and car type. You can use any amount of filters you want:
 
