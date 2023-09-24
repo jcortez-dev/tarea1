@@ -14,8 +14,8 @@ public class CarController {
     private final CarService carService;
 
     @GetMapping("create/{quantity}")
-    public List<Car> generateCars(@PathVariable int quantity){
-        return carService.generateCars(quantity);
+    public List<Car> generateCars(@PathVariable int carsQuantity){
+        return carService.generateCars(carsQuantity);
     }
 
     @GetMapping("")
@@ -24,8 +24,8 @@ public class CarController {
     }
 
     @GetMapping("agent/filter")
-    public List<Car> getCarsWithFilter(@RequestParam(required = false) Integer maxPrice, @RequestParam(required = false) String type, @RequestParam(required = false) String color){
-        return carService.filter(maxPrice, type,color);}
+    public List<Car> getCarsWithFilter(@RequestParam(required = false) Integer maxPrice, @RequestParam(required = false) String carType, @RequestParam(required = false) String carColor){
+        return carService.filter(maxPrice, carType, carColor);}
 
     @GetMapping("agent/{carId}")
     public Car contactAgent(@PathVariable int carId){
