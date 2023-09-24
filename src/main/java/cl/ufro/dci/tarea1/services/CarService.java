@@ -109,6 +109,7 @@ public class CarService {
         return contactedCar;
     }
 
+    /*
     public List<Car> filter(Integer maxPrice, String type, String color) {
 
         List<Car> cars = getCars();
@@ -126,7 +127,20 @@ public class CarService {
 
         return filteredCars;
     }
+     */
 
+    public List<Car> filter(Integer maxPrice, String type, String color) {
+
+        List<Car>cars = carRepository.findAll();
+
+        return cars.stream()
+                .filter(car -> (color == null || color.equalsIgnoreCase(car.getColor()))
+                        && (maxPrice == null || maxPrice.equals(car.getPrice()))
+                        && (type == null || type.equalsIgnoreCase(car.getType())))
+                .collect(Collectors.toList());
+    }
+
+    /*
     public String validType(String type){
         for (int i = 0; i < CAR_TYPES.length; i++) {
             if(CAR_TYPES[i].equalsIgnoreCase(type)){
@@ -152,4 +166,6 @@ public class CarService {
         }
         return null;
     }
+
+     */
 }

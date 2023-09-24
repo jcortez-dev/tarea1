@@ -24,7 +24,7 @@ public class CarController {
     }
 
     @GetMapping("agent/filter")
-    public List<Car> getCarsWithFilter(@RequestParam Integer maxPrice, @RequestParam String type, @RequestParam String color){
+    public List<Car> getCarsWithFilter(@RequestParam(required = false) Integer maxPrice, @RequestParam(required = false) String type, @RequestParam(required = false) String color){
         return carService.filter(maxPrice, type,color);}
 
     @GetMapping("agent/{carId}")
