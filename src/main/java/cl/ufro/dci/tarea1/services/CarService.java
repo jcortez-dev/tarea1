@@ -158,25 +158,23 @@ public class CarService {
      * @return
      */
     public List<Map<String, Object>> filter (Integer maxPrice, String type, String color){
-        List<Map<String, Object>> carsWithoutPopularity = new ArrayList<>();
-        List <Car> filteredCars = agentFilter(maxPrice, type, color);
-
-        for (Car car : filteredCars) {
-            Map<String, Object> carInfo = new HashMap<>();
-            carInfo.put("id", car.getId());
-            carInfo.put("brand", car.getBrand());
-            carInfo.put("productionYear", car.getProductionYear());
-            carInfo.put("color", car.getColor());
-            carInfo.put("price", car.getPrice());
-            carInfo.put("turbo", car.isTurbo());
-            carInfo.put("type", car.getType());
-            carInfo.put("motor", car.getMotor());
-            carInfo.put("cabin", car.getCabin());
-            carInfo.put("sunroof", car.isSunroof());
-            carsWithoutPopularity.add(carInfo);
-        }
-
-        return carsWithoutPopularity;
+        return agentFilter(maxPrice, type, color)
+                .stream()
+                .map(car -> {
+                    Map<String, Object> carInfo = new HashMap<>();
+                    carInfo.put("id", car.getId());
+                    carInfo.put("brand", car.getBrand());
+                    carInfo.put("productionYear", car.getProductionYear());
+                    carInfo.put("color", car.getColor());
+                    carInfo.put("price", car.getPrice());
+                    carInfo.put("turbo", car.isTurbo());
+                    carInfo.put("type", car.getType());
+                    carInfo.put("motor", car.getMotor());
+                    carInfo.put("cabin", car.getCabin());
+                    carInfo.put("sunroof", car.isSunroof());
+                    return carInfo;
+                })
+                .collect(Collectors.toList());
     }
 
     /**
