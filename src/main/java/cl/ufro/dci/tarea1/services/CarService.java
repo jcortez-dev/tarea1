@@ -25,8 +25,8 @@ public class CarService {
     static final Random random = new Random();
 
     /**
-     * Method whose function is to create N number of cars with previously defined random values
-     * @param carQuantity Number of cars to be created.
+     * It fulfills the function of creating cars
+     * @param carQuantity Number of cars to be created
      * @return List of cars created
      */
     public List<Car> generateCars(int carQuantity){
@@ -51,17 +51,17 @@ public class CarService {
     }
 
     /**
-     * Method whose function is to obtain the complete list of cars.
-     * @return Complete list of cars.
+     * Method whose function is to obtain the complete list of cars
+     * @return Complete list of cars
      */
     public List<Car> getCars() {
         return carRepository.findAll();
     }
 
     /**
-     * Method that fulfills the function of determining whether or not the SUV type car has a sunroof
+     * Determine whether or not the SUV type car has a sunroof
      * @param carType Type of car
-     * @return A boolean value that determines whether the car has a sunroof.
+     * @return A boolean value that determines whether the car has a sunroof
      */
     private boolean generateRandomSunroof(String carType) {
         if(carType.equalsIgnoreCase("suv")){
@@ -72,7 +72,7 @@ public class CarService {
     }
 
     /**
-     * Method that fulfills the function of determining if the TRUCK type car has 1 or 2 cabins
+     * determines if the TRUCK type car has 1 or 2 cabins
      * @param carType Type of car
      * @return The number of cabins the car will have
      */
@@ -85,9 +85,9 @@ public class CarService {
     }
 
     /**
-     *
-     * @param carType
-     * @return
+     * Validates the car type and assigns a random value from a defined list
+     * @param carType Type of car
+     * @return The type of motor the car will have
      */
     private String generateRandomMotorType(String carType) {
         int randomIndex;
@@ -108,9 +108,9 @@ public class CarService {
     }
 
     /**
-     *
-     * @param specifications
-     * @return
+     * Randomly determines the value to return from a list
+     * @param specifications List of data of type String
+     * @return a random value
      */
     private String generateCarSpecification(String [] specifications) {
         int randomIndex = random.nextInt(specifications.length);
@@ -119,27 +119,27 @@ public class CarService {
     }
 
     /**
-     *
-     * @return
+     * Randomly determines the boolean value to return
+     * @return A boolean value that determines whether the car has a turbo or not
      */
     private boolean generateRandomTurbo() {
         return random.nextBoolean();
     }
 
     /**
-     *
-     * @param minimumValue
-     * @param maximumValue
-     * @return
+     * Method that randomly determines the value of a car
+     * @param minimumValue Minimum price range to assign to cars
+     * @param maximumValue Maximum price range to assign to cars
+     * @return A numerical value that determines the price of a car
      */
     public int generateNumericValue(int minimumValue, int maximumValue) {
         return random.nextInt(maximumValue - minimumValue + 1) + minimumValue;
     }
 
     /**
-     *
-     * @param carId
-     * @return
+     * Gets a specific car whose popularity attribute increases by 1 each time the method is called.
+     * @param carId Car id value
+     * @return A car type object.
      */
     public Car contactAgency(Integer carId){
         Car contactedCar = carRepository.findById(carId).get();
@@ -151,11 +151,11 @@ public class CarService {
 
 
     /**
-     *
-     * @param maxPrice
-     * @param type
-     * @param color
-     * @return
+     * Filter a list of cars
+     * @param maxPrice Maximum price to consult
+     * @param type Type of car
+     * @param color Car color
+     * @return A list of filtered cars without the popularity attribute of each car
      */
     public List<Map<String, Object>> filter (Integer maxPrice, String type, String color){
         return agentFilter(maxPrice, type, color)
@@ -178,11 +178,11 @@ public class CarService {
     }
 
     /**
-     *
-     * @param maxPrice
-     * @param type
-     * @param color
-     * @return
+     * Filter a list of cars
+     * @param maxPrice Maximum price to consult
+     * @param type Type of car
+     * @param color Car color
+     * @return A list of leaked cars
      */
     public List<Car> agentFilter(Integer maxPrice, String type, String color) {
 
