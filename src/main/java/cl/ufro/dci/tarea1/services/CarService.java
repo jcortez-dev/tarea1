@@ -8,6 +8,9 @@ import org.springframework.stereotype.Service;
 import java.util.*;
 import java.util.stream.Collectors;
 
+/**
+ * This service has the logic for handling operations related to Car class
+ */
 @Service
 @RequiredArgsConstructor
 public class CarService {
@@ -25,14 +28,15 @@ public class CarService {
     static final Random random = new Random();
 
     /**
-     * It fulfills the function of creating cars
-     * @param carQuantity Number of cars to be created
+     * Generates a list of cars based on a number entered by the user
+     *
+     * @param carsQuantity Number of cars to be created
      * @return List of cars created
      */
-    public List<Car> generateCars(int carQuantity){
+    public List<Car> generateCars(int carsQuantity){
         List<Car> generatedCars = new ArrayList<>();
 
-        for (int i = 0; i < carQuantity; i++) {
+        for (int i = 0; i < carsQuantity; i++) {
             String carType = generateCarSpecification(CAR_TYPES);
             generatedCars.add(new Car(
                     generateCarSpecification(CAR_BRANDS),
@@ -51,17 +55,10 @@ public class CarService {
     }
 
     /**
-     * Method whose function is to obtain the complete list of cars
-     * @return Complete list of cars
-     */
-    public List<Car> getCars() {
-        return carRepository.findAll();
-    }
-
-    /**
-     * Determine whether or not the SUV type car has a sunroof
+     * Randomly determines if an SUV car has a sunroof or not
+     *
      * @param carType Type of car
-     * @return A boolean value that determines whether the car has a sunroof
+     * @return True or false
      */
     private boolean generateRandomSunroof(String carType) {
         if(carType.equalsIgnoreCase("suv")){
@@ -72,7 +69,8 @@ public class CarService {
     }
 
     /**
-     * determines if the TRUCK type car has 1 or 2 cabins
+     * Randomly determines if a TRUCK has 1 or 2 cabins
+     *
      * @param carType Type of car
      * @return The number of cabins the car will have
      */
@@ -85,7 +83,8 @@ public class CarService {
     }
 
     /**
-     * Validates the car type and assigns a random value from a defined list
+     * Validates the type of car and assigns a random motor from a defined list
+     *
      * @param carType Type of car
      * @return The type of motor the car will have
      */
@@ -108,9 +107,10 @@ public class CarService {
     }
 
     /**
-     * Randomly determines the value to return from a list
-     * @param specifications List of data of type String
-     * @return a random value
+     * Randomly determines the value to return from a String array
+     *
+     * @param specifications Array of data of type String
+     * @return a random String value
      */
     private String generateCarSpecification(String [] specifications) {
         int randomIndex = random.nextInt(specifications.length);
@@ -120,6 +120,7 @@ public class CarService {
 
     /**
      * Randomly determines the boolean value to return
+     *
      * @return A boolean value that determines whether the car has a turbo or not
      */
     private boolean generateRandomTurbo() {
@@ -127,10 +128,11 @@ public class CarService {
     }
 
     /**
-     * Method that randomly determines the value of a car
-     * @param minimumValue Minimum price range to assign to cars
-     * @param maximumValue Maximum price range to assign to cars
-     * @return A numerical value that determines the price of a car
+     * Method that randomly determines a numeric value
+     *
+     * @param minimumValue Minimum numeric value
+     * @param maximumValue Maximum numeric value
+     * @return A random numeric value, between the minimum value and maximum value
      */
     public int generateNumericValue(int minimumValue, int maximumValue) {
         return random.nextInt(maximumValue - minimumValue + 1) + minimumValue;
@@ -151,11 +153,12 @@ public class CarService {
 
 
     /**
-     * Filter a list of cars
-     * @param maxPrice Maximum price to consult
-     * @param type Type of car
-     * @param color Car color
-     * @return A list of filtered cars without the popularity attribute of each car
+     * Filters the cars based on the filters entered by a user
+     *
+     * @param maxPrice The maximum price of cars
+     * @param type The type of car
+     * @param color The color of cars
+     * @return The list of cars filtered without their popularity
      */
     public List<Map<String, Object>> filter (Integer maxPrice, String type, String color){
         return agentFilter(maxPrice, type, color)
@@ -178,11 +181,12 @@ public class CarService {
     }
 
     /**
-     * Filter a list of cars
-     * @param maxPrice Maximum price to consult
-     * @param type Type of car
-     * @param color Car color
-     * @return A list of leaked cars
+     * Filters the cars based on the filters entered by an agent
+     *
+     * @param maxPrice The maximum price of cars
+     * @param type The type of car
+     * @param color The color of cars
+     * @return The list of cars filtered
      */
     public List<Car> agentFilter(Integer maxPrice, String type, String color) {
 

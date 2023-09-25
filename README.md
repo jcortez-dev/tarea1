@@ -20,11 +20,11 @@ GET localhost:8080/api/car/contact/{carId}
 3. To filter cars, you can indicate it on the request. You can filter cars by: car color, maximum price and car type. You can use any amount of filters you want:
 
 ```
-GET localhost:8080/api/car/filter?maxprice={maxPrice}&color={color}&type={type}
+GET localhost:8080/api/car/filter?maxPrice={maxPrice}&color={color}&type={type}
 ```
 
 4. To filter cars, and also view their popularity, you need to access as an agent. This is similar to the previous filter, but the route changes:
 
 ```
-GET localhost:8080/api/car/agent/filter?maxprice={maxPrice}&color={color}&type={type}
+GET localhost:8080/api/car/agent/filter?maxPrice={maxPrice}&color={color}&type={type}
 ```
